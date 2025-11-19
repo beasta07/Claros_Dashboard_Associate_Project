@@ -10,6 +10,8 @@ export const fetchClients = async (): Promise<Client[]> => {
   return users.map((u: any) => ({
     id: u.id.toString(),
     name: `${u.firstName} ${u.lastName}`,
+    image: `${u.image}`,
+    username: `${u.username}`,
     email: u.email,
     company: u.company?.name || "N/A",
     status: Math.random() > 0.5 ? "Active" : "Inactive",

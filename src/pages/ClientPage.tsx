@@ -5,97 +5,134 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ClientPage = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"All" | "Active" | "Inactive">("All");
+  const itemsPerPage = 10;
+
   const { data, isLoading, isError, error } = useQuery<Client[], Error>({
     queryKey: ["clients"],
     queryFn: fetchClients,
   });
-const totalItems = data?.length ?? 0;
-const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-const paginatedClients = data?.slice(
-  (currentPage - 1) * itemsPerPage,
-  currentPage * itemsPerPage
-);
+  const totalItems = data?.length ?? 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  // Local state for search
-  const [search, setSearch] = useState("");
+  const paginatedClients = data?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div className="text-red-500">Error: {error.message}</div>;
 
-  // Filter data
-  const filteredClients = paginatedClients.filter(
-    (c) =>
+  const filteredClients = paginatedClients?.filter((c) => {
+    const matchesSearch =
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.email.toLowerCase().includes(search.toLowerCase()) ||
-      c.company.toLowerCase().includes(search.toLowerCase())
-  );
+      c.company.toLowerCase().includes(search.toLowerCase());
+    const matchesStatus =
+      statusFilter === "All" ? true : c.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4">Clients</h1>
+    <div className="p-4 lg:p-6 bg-white font-jakarta rounded-md">
+      <h1 className="text-2xl font-jhaktra font-semibold mb-4">Clients</h1>
 
-      <input
-        type="text"
-        placeholder="Search clients..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="p-2 border rounded mb-4 w-full max-w-sm"
-      />
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4">
+        <input
+          type="text"
+          placeholder="Search clients..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="px-4 py-2 border border-gray-300 bg-white rounded-lg w-full sm:max-w-sm"
+        />
 
-      <table className="w-full border-collapse border border-gray-200">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border p-2">Name</th>
-            <th className="border p-2">Email</th>
-            <th className="border p-2">Company</th>
-            <th className="border p-2">Status</th>
-            <th className="border p-2">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredClients.map((client) => (
-            <tr key={client.id}>
-              <td className="border p-2">{client.name}</td>
-              <td className="border p-2">{client.email}</td>
-              <td className="border p-2">{client.company}</td>
-              <td className="border p-2">{client.status}</td>
-              <td className="border p-2">
-                <Link
-                  to={`/clients/${client.id}`}
-                  className="text-blue-500 hover:underline"
-                >
-                  View
-                </Link>
-              </td>
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value as any)}
+          className="px-4 py-2 border border-gray-300 bg-white rounded-lg w-full sm:max-w-xs"
+        >
+          <option value="All">All</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full border border-gray-300 min-w-[600px] sm:min-w-full">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-3 text-left text-xs sm:text-sm">Name</th>
+              <th className="p-3 text-left text-xs sm:text-sm">Email</th>
+              <th className="p-3 text-left text-xs sm:text-sm">Company</th>
+              <th className="p-3 text-center text-xs sm:text-sm">Status</th>
+              <th className="p-3 text-center text-xs sm:text-sm">Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="flex justify-center items-center gap-4 mt-4">
-  <button
-    disabled={currentPage === 1}
-    onClick={() => setCurrentPage(prev => prev - 1)}
-    className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-  >
-    Prev
-  </button>
+          </thead>
+          <tbody>
+            {filteredClients?.map((client) => (
+              <tr key={client.id} className="hover:bg-gray-50">
+                <td className="flex items-center gap-2 border-t border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
+                  <img
+                    src={client.image ?? "https://via.placeholder.com/40"}
+                    className="rounded-full w-8 h-8 sm:w-10 sm:h-10 object-cover"
+                    alt={client.name}
+                  />
+                  <div>
+                    <h1 className="font-medium">{client.name}</h1>
+                    <p className="text-gray-500 text-[10px] sm:text-xs">@{client.username}</p>
+                  </div>
+                </td>
+                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">{client.email}</td>
+                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">{client.company}</td>
+                <td className="border border-gray-300 p-2 sm:p-4 text-center text-xs sm:text-sm">
+                  <div
+                    className={`font-medium rounded-md px-2 py-1 ${
+                      client.status === "Active"
+                        ? "text-green-600 border border-green-500 bg-green-50"
+                        : "text-red-600 border border-red-500 bg-red-50"
+                    }`}
+                  >
+                    {client.status}
+                  </div>
+                </td>
+                <td className="border border-gray-300 p-2 sm:p-4 text-center text-xs sm:text-sm">
+                  <Link
+                    to={`/clients/${client.id}`}
+                    className="text-blue-500 hover:underline"
+                  >
+                    View
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-  <span className="text-sm">
-    Page {currentPage} of {totalPages}
-  </span>
-
-  <button
-    disabled={currentPage === totalPages}
-    onClick={() => setCurrentPage(prev => prev + 1)}
-    className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-  >
-    Next
-  </button>
-</div>
-
+      {/* Pagination */}
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mt-4">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+        <span className="text-sm">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

@@ -31,8 +31,8 @@ const loginMutation = useMutation({
   // ✅ Formik setup
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: "admin@test.com",
+      password: "password",
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -48,7 +48,8 @@ const loginMutation = useMutation({
   });
 
   return (
-    <div className="flex font-jakarta items-center justify-center min-h-screen bg-[#EDF2F9]">
+    <section className="min-h-screen bg-[#EDF2F9] flex flex-col font-jakarta items-center justify-center">
+    <div className=" ">
       <div className="flex flex-col md:flex-row w-[90%] lg:w-[55%] lg:h-100 mx-auto  border border-gray-300 rounded-l-lg   relative z-20">
         {/* Left Panel */}
         <div className="flex-1 bg-[#01416B] flex flex-col gap-4 justify-center items-center text-white p-9 text-center relative overflow-hidden rounded-t-md rounded-r-none lg:rounded-l-lg z-10">
@@ -62,8 +63,8 @@ const loginMutation = useMutation({
             categorization, and insights for you!
           </p>
           <img
-            src="/images/ForLogin/bg1.png"
-            className="absolute -top-80 w-full right-0"
+            src="/public/images/Login/bg1.png"
+            className="absolute top-90 w-full right-0"
           />
         </div>
 
@@ -122,7 +123,7 @@ const loginMutation = useMutation({
               {/* Submit */}
               <button
                 type="submit"
-                className="p-2 w-full bg-[#287CEB] text-white rounded-md mt-9 font-semibold"
+                className="p-2 w-full bg-[#287CEB] text-white cursor-pointer rounded-md mt-9 font-semibold"
                 disabled={loginMutation.isPending}
               >
                 {loginMutation.isPending ? "Logging in..." : "Login"}
@@ -134,18 +135,28 @@ const loginMutation = useMutation({
         {/* Decorative Images */}
         <div className="hidden lg:block">
           <img
-            src="/images/Login/bg2.png"
+            src="/public/images/Login/bg3.png"
             className="absolute -top-24 -right-32 w-[25%]"
           />
         </div>
         <div className="hidden lg:block">
           <img
-            src="/images/Login/bg3.png"
+            src="/public/images/Login/bg2.png"
             className="absolute -bottom-20 -left-28 w-[20%]"
           />
         </div>
       </div>
+      
     </div>
+    <div className="mt-6 p-4 font-jakarta bg-blue-100 border border-blue-200 rounded-lg">
+          <h3 className="text-sm  text-blue-800 mb-2">Login is authenticated using Redux Toolkit.</h3>
+          <p className="text-xs  text-blue-700">
+            Email: <span className="font-semibold">admin@test.com</span> 
+            <br />
+            Password: <span className="font-semibold">password</span> 
+          </p>
+        </div>
+    </section>
   );
 };
 
