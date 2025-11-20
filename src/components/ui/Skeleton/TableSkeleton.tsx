@@ -1,9 +1,6 @@
 import React from "react";
+import type {TableSkeletonProps} from "../../../types/index"
 
-interface TableSkeletonProps {
-  rows?: number;
-  columns?: number;
-}
 
 const TableSkeleton: React.FC<TableSkeletonProps> = ({ rows = 4, columns = 5 }) => {
   return (

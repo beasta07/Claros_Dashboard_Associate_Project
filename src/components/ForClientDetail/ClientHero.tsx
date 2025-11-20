@@ -1,11 +1,12 @@
-import type { ClientDetail } from "../../types"
+import type { ClientDetail } from "../../types";
 
+interface ClientHeroProps {
+  client: ClientDetail;
+}
 
-
-
-export default function ClientHero({ client }: ClientDetail) {
+export default function ClientHero({ client }: ClientHeroProps) {
   return (
-    <div className="bg-white rounded-2xl  shadow-sm border border-gray-300 p-8">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-300 p-8">
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
         <div className="md:flex gap-6 items-start">
           <img src={client.image} alt={`${client.name}`} />
@@ -21,12 +22,11 @@ export default function ClientHero({ client }: ClientDetail) {
           </div>
         </div>
 
-        {/* Client ID Card */}
         <div className="bg-linear-to from-[#4644A4]/5 to-[#4644A4]/10 rounded-xl px-4 py-3 border border-[#4644A4]/20 text-center">
           <p className="text-xs text-gray-600 font-medium uppercase tracking-wider mb-1">Client ID</p>
           <p className="text-2xl font-bold text-[#4644A4]">#{String(client.id).padStart(4, "0")}</p>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -26,7 +26,7 @@ if (isLoading) return <ListSkeleton count={4} />;  if (isError)
       </div>
       <hr className="text-gray-300 my-5" />
       <ul className="space-y-4">
-        {transactions.slice(-4)?.map((tx: Transaction, index: number) => (
+        {transactions?.slice(-4)?.map((tx: Transaction, index: number) => (
           <li key={index} className="flex text-sm justify-between items-center">
             <div className="flex gap-2 items-center">
               <div className="rounded-full">

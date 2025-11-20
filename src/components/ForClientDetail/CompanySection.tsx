@@ -1,19 +1,15 @@
-import InfoCard from "../ui/InfoCard"
+import InfoCard from "../ui/InfoCard";
 
 interface CompanySectionProps {
   client: {
-    company: {
-      name: string
-      title: string
-      department: string
-      address: {
-        city: string
-        state: string
-        country: string
-      }
-    }
-  }
-}
+    address?: string;
+company: string;
+occupation: string;
+
+      
+    };
+  };
+
 
 export default function CompanySection({ client }: CompanySectionProps) {
   const companyInfo = [
@@ -26,8 +22,8 @@ export default function CompanySection({ client }: CompanySectionProps) {
       label: "Position",
       value: client.occupation,
       icon: "💼",
-    }
-  ]
+    },
+  ];
 
   return (
     <div>
@@ -38,5 +34,5 @@ export default function CompanySection({ client }: CompanySectionProps) {
         ))}
       </div>
     </div>
-  )
+  );
 }

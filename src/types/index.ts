@@ -1,3 +1,4 @@
+
 export type Client = {
   id: string;
   name: string;
@@ -17,7 +18,7 @@ export interface ClientDetail {
   company: string;
   email: string;
   phone: string;
-  age: string;
+  age: number;
   gender: string;
   bloodGroup: string;
   university: string;
@@ -25,3 +26,11 @@ export interface ClientDetail {
   address?: string;
   position?: string;
 }
+export interface TableSkeletonProps {
+  rows?: number;
+  columns?: number;
+}
+export type LayoutStateProps = {
+  displaySidebar: boolean;
+  setDisplaySidebar: React.Dispatch<React.SetStateAction<boolean>>;
+};

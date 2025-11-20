@@ -1,10 +1,9 @@
-import React from "react";
-import {  Login, Setting, User } from "react-iconly";
+import { Login, Setting, User } from "react-iconly";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
+import type { LayoutStateProps } from "../types";
 
-const Sidebar: React.FC = ({displaySidebar,setDisplaySidebar}) => {
-
+const Sidebar = ({ displaySidebar, setDisplaySidebar }:LayoutStateProps) => {
   const menuItems = [
     {
       label: "Dashboard",
@@ -32,10 +31,10 @@ const Sidebar: React.FC = ({displaySidebar,setDisplaySidebar}) => {
       } relative h-screen font-jakarta  lg:w-auto w-screen bg-white  flex flex-col`}
     >
       <div className="flex items-center  lg:p-4 p-4 justify-between">
-        <NavLink to ='/'>
-        <div className="lg:w-full text-lg border-b-gray-300 text-nowrap text-[#09426A] font-bold  lg:rounded-none rounded-full p-4">
-          Claros Analytics
-        </div>
+        <NavLink onClick={() => setDisplaySidebar(!displaySidebar)} to="/">
+          <div className="lg:w-full text-lg border-b-gray-300 text-nowrap text-[#09426A] font-bold  lg:rounded-none rounded-full p-4">
+            Claros Analytics
+          </div>
         </NavLink>
 
         <GiHamburgerMenu
@@ -43,13 +42,14 @@ const Sidebar: React.FC = ({displaySidebar,setDisplaySidebar}) => {
           onClick={() => setDisplaySidebar(!displaySidebar)}
         />
       </div>
-        <hr className="text-gray-300" />
+      <hr className="text-gray-300" />
 
       <ul className="flex flex-col mt-10 lg:p-4 p-4 gap-6 text-sm  lg:px-4">
         {menuItems.map((item, index) => (
           <NavLink
             key={index}
             to={item.path}
+            onClick={() => setDisplaySidebar(!displaySidebar)}
             className={({ isActive }) =>
               `flex items-center gap-3  ${
                 isActive ? "font-semibold text-black" : "text-gray-700"
@@ -70,7 +70,6 @@ const Sidebar: React.FC = ({displaySidebar,setDisplaySidebar}) => {
       </ul>
 
       <ul className="absolute bottom-7 flex flex-col gap-6 text-sm px-4">
- 
         <NavLink to="/login" className="flex gap-3">
           <Login primaryColor="gray" secondaryColor="gray" size="medium" />
           <span className="text-gray-700">Logout</span>

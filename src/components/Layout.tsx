@@ -2,9 +2,9 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
-
+import type{LayoutStateProps} from "../types/index"
 const Layout = () => {
-  const [displaySidebar, setDisplaySidebar] = useState(false);
+  const [displaySidebar, setDisplaySidebar] = useState<LayoutStateProps["displaySidebar"]>(false);
   return (
     <section className="flex w-full">
       {/* Sticky sidebar */}

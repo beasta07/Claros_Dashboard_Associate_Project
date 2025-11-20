@@ -8,7 +8,9 @@ import TableSkeleton from "../components/ui/Skeleton/TableSkeleton";
 const ClientPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"All" | "Active" | "Inactive">("All");
+  const [statusFilter, setStatusFilter] = useState<
+    "All" | "Active" | "Inactive"
+  >("All");
   const itemsPerPage = 10;
 
   const { data, isLoading, isError, error } = useQuery<Client[], Error>({
@@ -24,12 +26,14 @@ const ClientPage = () => {
     currentPage * itemsPerPage
   );
 
-if (isLoading)
-  return (
-    <div className="bg-white w-full font-jakarta rounded-lg mt-4 lg:mt-0 p-4">
-      <TableSkeleton rows={10} columns={5} />
-    </div>
-  );  if (isError) return <div className="text-red-500">Error: {error.message}</div>;
+  if (isLoading)
+    return (
+      <div className="bg-white w-full font-jakarta rounded-lg mt-4 lg:mt-0 p-4">
+        <TableSkeleton rows={10} columns={5} />
+      </div>
+    );
+  if (isError)
+    return <div className="text-red-500">Error: {error.message}</div>;
 
   const filteredClients = paginatedClients?.filter((c) => {
     const matchesSearch =
@@ -56,7 +60,9 @@ if (isLoading)
 
         <select
           value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value as any)}
+          onChange={(e) =>
+            setStatusFilter(e.target.value as "All" | "Active" | "Inactive")
+          }
           className="px-4 py-2 border border-gray-300 bg-white rounded-lg w-full sm:max-w-xs"
         >
           <option value="All">All</option>
@@ -88,11 +94,17 @@ if (isLoading)
                   />
                   <div>
                     <h1 className="font-medium">{client.name}</h1>
-                    <p className="text-gray-500 text-[10px] sm:text-xs">@{client.username}</p>
+                    <p className="text-gray-500 text-[10px] sm:text-xs">
+                      @{client.username}
+                    </p>
                   </div>
                 </td>
-                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">{client.email}</td>
-                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">{client.company}</td>
+                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
+                  {client.email}
+                </td>
+                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
+                  {client.company}
+                </td>
                 <td className="border border-gray-300 p-2 sm:p-4 text-center text-xs sm:text-sm">
                   <div
                     className={`font-medium rounded-md px-2 py-1 ${
