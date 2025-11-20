@@ -1,73 +1,92 @@
-# React + TypeScript + Vite
+# Claros Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern **analytics dashboard** built with **React**, **Vite**, **Tailwind CSS**, and **TypeScript**. This project demonstrates a clean, responsive UI with authentication, data fetching, and skeleton loading for improved perceived performance.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
 
-## React Compiler
+1. **Clone the repository:**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+git clone <repository-url>
+cd claros-analytics-dashboard
 
-## Expanding the ESLint configuration
+    Install dependencies:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+npm install
+# or
+yarn
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+    Start the development server:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+npm run dev
+# or
+yarn dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    Open in browser:
+    Navigate to http://localhost:5173 (Vite default port).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Authentication
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    Login credentials for demo purposes:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+        Email: admin@test.com
+
+        Password: password
+
+    Authentication state is handled using Redux Toolkit.
+
+
+## Features
+
+- **Authentication**: Implemented using **Redux Toolkit**.
+- **Data Fetching**: Managed via **TanStack Query (React Query)** for clients and transactions.
+- **Skeleton Loading**: Added **TableSkeleton** components for better perceived performance while data loads.
+- **Responsive Design**: Fully responsive using **Tailwind CSS**.
+- **Dashboard Components**:
+  - Overview
+  - Analytic Charts
+  - Clients Table
+  - Recent Transactions
+- **Pagination & Filtering**: Built-in search, status filter, and pagination for tables.
+
+---
+
+## Tech Stack
+
+- **React** (Vite + TypeScript)
+- **Tailwind CSS** for styling
+- **Redux Toolkit** for authentication state management
+- **TanStack Query** for async data fetching
+- **React Icons** for icons
+- Skeleton components for loading UI
+
+---
+
+## Project Structure
+
+src/
+├─ api/ # API calls (clients, transactions, auth)
+├─ components/ # Reusable UI components
+│ ├─ Dashboard/
+│ ├─ Skeleton/
+├─ features/ # Redux slices
+├─ pages/ # Page-level components (Login, Dashboard, Clients, Transactions)
+├─ types/ # TypeScript types
+└─ App.tsx # Main app entry
+
+
+---
+
+
+
+
+Notes
+
+    Skeleton loading improves perceived performance while fetching data from APIs.
+
+    Ensure your API endpoints for clients and transactions are running or mocked for the dashboard to display data.
+
+    The project is fully responsive and mobile-friendly.
 ```
