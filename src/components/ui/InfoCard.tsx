@@ -1,9 +1,5 @@
-interface InfoCardProps {
-  label: string
-  value: string
-  icon?: string
-  href?: string
-}
+import type { InfoCardProps } from "../../types"
+
 
 export default function InfoCard({ label, value, icon, href }: InfoCardProps) {
   const content = (

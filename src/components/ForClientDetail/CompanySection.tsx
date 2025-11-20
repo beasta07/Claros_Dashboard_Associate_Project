@@ -1,14 +1,7 @@
+import type { CompanySectionProps } from "../../types";
 import InfoCard from "../ui/InfoCard";
 
-interface CompanySectionProps {
-  client: {
-    address?: string;
-company: string;
-occupation: string;
 
-      
-    };
-  };
 
 
 export default function CompanySection({ client }: CompanySectionProps) {

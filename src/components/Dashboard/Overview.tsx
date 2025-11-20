@@ -21,7 +21,6 @@ const Overview = () => {
 
   if (isError) return <div className="text-red-500">{error.message}</div>;
 
-  // --- Transform crypto values into analytics KPIs ---
   const totalAnnualSpend =
     coins?.reduce((sum, item) => sum + item.market_cap, 0) ?? 0;
 

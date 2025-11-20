@@ -1,15 +1,5 @@
-interface AddressSectionProps {
-  client: {
-    address: {
-      address: string
-      city: string
-      state: string
-      stateCode: string
-      postalCode: string
-      country: string
-    }
-  }
-}
+import type { AddressSectionProps } from "../../types"
+
 
 export default function AddressSection({ client }: AddressSectionProps) {
   const { address } = client

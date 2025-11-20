@@ -1,8 +1,6 @@
 import React from "react";
+import type { ListSkeletonProps } from "../../../types";
 
-interface ListSkeletonProps {
-  count?: number; 
-}
 
 const ListSkeleton: React.FC<ListSkeletonProps> = ({ count = 4 }) => {
   return (

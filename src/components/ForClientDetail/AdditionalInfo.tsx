@@ -1,14 +1,6 @@
+import type { AdditionalInfoSectionProps } from "../../types"
 import MetricCard from "../ui/MetricCard"
 
-interface AdditionalInfoSectionProps {
-  client: {
-    bloodGroup: string
-    university: string
-    role: string
-    username: string
-    age: number
-  }
-}
 
 export default function AdditionalInfoSection({ client }: AdditionalInfoSectionProps) {
   const additionalInfo = [

@@ -13,7 +13,7 @@ const Clients = () => {
     queryFn: fetchClients,
   });
 
- if (isLoading) return <ListSkeleton count={4} />;
+  if (isLoading) return <ListSkeleton count={4} />;
 
   if (isError)
     return (
@@ -26,8 +26,8 @@ const Clients = () => {
     <div className="bg-white w-full font-jakarta rounded-lg mt-4 lg:mt-0 p-4">
       <div className="flex justify-between">
         <h1 className="font-bold">User Information</h1>
-        <NavLink to='/clients'>
-        <button className="text-[#4644a4]  cursor-pointer">See All</button>
+        <NavLink to="/clients">
+          <button className="text-[#4644a4]  cursor-pointer">See All</button>
         </NavLink>
       </div>
       <hr className="text-gray-300 my-5" />

@@ -1,9 +1,4 @@
-interface MetricCardProps {
-  label: string
-  value: string
-  color: string
-  textColor: string
-}
+import type { MetricCardProps } from "../../types";
 
 export default function MetricCard({ label, value, color, textColor }: MetricCardProps) {
   return (

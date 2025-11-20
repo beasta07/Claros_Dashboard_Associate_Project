@@ -5,16 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../features/authSlice";
-import { loginUser } from "../api/auth";
+import { loginUser, type LoginResponse } from "../api/auth";
+import type { LoginPayload } from "../types";
 
-export interface LoginResponse {
-  token: string;
-}
-
-export interface LoginPayload {
-  email: string;
-  password: string;
-}
 
 const Login = () => {
   const navigate = useNavigate();

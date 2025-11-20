@@ -6,7 +6,7 @@ import type { LayoutStateProps } from "../types";
 
 const Navbar = ({ displaySidebar, setDisplaySidebar }: LayoutStateProps) => {
   const [displayDropdown, setDisplayDropDown] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown div
+  const dropdownRef = useRef<HTMLDivElement>(null); 
   const navigate = useNavigate();
   const params = useParams();
   const pageTitle = params.title || "Dashboard";

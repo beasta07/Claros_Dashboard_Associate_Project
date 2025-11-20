@@ -1,13 +1,6 @@
+import type { ContactSectionProps } from "../../types"
 import InfoCard from "../ui/InfoCard"
 
-interface ContactSectionProps {
-  client: {
-    email: string
-    phone: string
-    age: number
-    gender: string
-  }
-}
 
 export default function ContactSection({ client }: ContactSectionProps) {
   const contactInfo = [

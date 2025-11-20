@@ -1,7 +1,4 @@
-interface AvatarBadgeProps {
-  src: string
-  alt: string
-}
+import type { AvatarBadgeProps } from "../../types"
 
 export default function AvatarBadge({ src, alt }: AvatarBadgeProps) {
   return (

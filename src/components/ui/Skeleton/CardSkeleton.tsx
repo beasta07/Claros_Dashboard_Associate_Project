@@ -1,8 +1,7 @@
 import React from "react";
+import type { CardSkeletonProps } from "../../../types";
 
-interface CardSkeletonProps {
-  height?: string;
-}
+
 
 const CardSkeleton: React.FC<CardSkeletonProps> = () => {
   return (
