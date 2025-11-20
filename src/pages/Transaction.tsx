@@ -12,12 +12,15 @@ const TransactionPage = () => {
     queryFn: fetchTransactions,
   });
 
-if (isLoading)
-  return (
-    <div className="bg-white w-full font-jakarta rounded-lg mt-4 lg:mt-0 p-4">
-      <TableSkeleton rows={10} columns={5} />
-    </div>
-  );  if (isError) return <p className="text-red-500">Error: {error.message}</p>;
+  if (isLoading)
+    return (
+      <div className="bg-white w-full font-jakarta rounded-lg mt-4 lg:mt-0 p-4">
+        <TableSkeleton rows={10} columns={5} />
+      </div>
+    );
+
+  if (isError)
+    return <p className="text-red-500">Error: {error.message}</p>;
 
   const totalItems = data?.length ?? 0;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -28,10 +31,13 @@ if (isLoading)
   );
 
   return (
-    <section className="p-4 lg:p-6 bg-white font-jakarta rounded-md">
-      <h1 className="text-2xl font-jhaktra font-semibold mb-4">Transactions</h1>
+    <main className="p-4 lg:p-6 bg-white font-jakarta rounded-md">
+      <header className="mb-4">
+        <h1 className="text-2xl font-semibold">Transactions</h1>
+      </header>
 
-      <div className="overflow-x-auto">
+      {/* Table Section */}
+      <section className="overflow-x-auto" aria-label="Transaction list">
         <table className="w-full border border-gray-300 min-w-[600px] sm:min-w-full">
           <thead>
             <tr className="bg-gray-100">
@@ -43,37 +49,41 @@ if (isLoading)
             </tr>
           </thead>
           <tbody>
-            {paginatedData?.map((product, index) => (
+            {paginatedData?.map((transaction, index) => (
               <tr key={index} className="hover:bg-gray-50">
                 <td className="flex items-center gap-2 border-t border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
                   <img
-                    src={product.logo ?? "https://via.placeholder.com/40"}
+                    src={transaction.logo ?? "https://via.placeholder.com/40"}
                     className="rounded-full w-8 h-8 sm:w-10 sm:h-10 object-cover"
-                    alt={product.name}
+                    alt={transaction.name}
                   />
                   <div>
-                    <h1 className="font-medium">{product.name}</h1>
+                    <h2 className="font-medium">{transaction.name}</h2>
                   </div>
                 </td>
                 <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
-                  Rs {(product.amount ?? 0).toFixed(2)}
+                  Rs {(transaction.amount ?? 0).toFixed(2)}
                 </td>
                 <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
-                  {product.discount} %
+                  {transaction.discount} %
                 </td>
                 <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
-                  {product.discountTotal ?? "-"}
+                  {transaction.discountTotal ?? "-"}
                 </td>
                 <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
-                  {product.date}
+                  {transaction.date}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
+      </section>
 
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mt-4">
+      {/* Pagination */}
+      <nav
+        className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mt-4"
+        aria-label="Pagination"
+      >
         <button
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}
@@ -93,8 +103,8 @@ if (isLoading)
         >
           Next
         </button>
-      </div>
-    </section>
+      </nav>
+    </main>
   );
 };
 

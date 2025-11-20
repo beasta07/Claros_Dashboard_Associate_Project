@@ -44,7 +44,6 @@ const loginMutation = useMutation({
     <section className="min-h-screen bg-[#EDF2F9] flex flex-col font-jakarta items-center justify-center">
     <div className=" ">
       <div className="flex flex-col md:flex-row w-[90%] lg:w-[55%] lg:h-100 mx-auto  border border-gray-300 rounded-l-lg   relative z-20">
-        {/* Left Panel */}
         <div className="flex-1 bg-[#01416B] flex flex-col gap-4 justify-center items-center text-white p-9 text-center relative overflow-hidden rounded-t-md rounded-r-none lg:rounded-l-lg z-10">
           <div className="flex justify-center lg:text-4xl text-2xl text-white gap-3 items-center">
             <IoStatsChart className="lg:text-5xl" />
@@ -56,17 +55,15 @@ const loginMutation = useMutation({
             categorization, and insights for you!
           </p>
           <img
-            src="/public/images/Login/bg1.png"
+            src="/images/Login/bg1.png"
             className="absolute top-90 w-full right-0"
           />
         </div>
 
-        {/* Right Panel (Form) */}
         <div className="flex-1 p-9 pb-0 bg-white relative z-20 rounded-md lg:rounded-r-lg">
           <div className="py-4">
             <h2 className="font-medium mb-7 text-2xl">Admin Login</h2>
             <form onSubmit={formik.handleSubmit} className="text-sm">
-              {/* Email */}
               <div className="mb-4">
                 <h2 className="pb-1.5">User*</h2>
                 <input
@@ -85,7 +82,6 @@ const loginMutation = useMutation({
                 )}
               </div>
 
-              {/* Password */}
               <div>
                 <h2 className="pb-1.5">Password*</h2>
                 <input
@@ -104,7 +100,6 @@ const loginMutation = useMutation({
                 )}
               </div>
 
-              {/* Mutation Error */}
               {loginMutation.isError && (
                 <div className="text-red-500 text-xs mt-2">
                   {loginMutation.error instanceof Error
@@ -113,7 +108,6 @@ const loginMutation = useMutation({
                 </div>
               )}
 
-              {/* Submit */}
               <button
                 type="submit"
                 className="p-2 w-full bg-[#287CEB] text-white cursor-pointer rounded-md mt-9 font-semibold"
@@ -125,16 +119,15 @@ const loginMutation = useMutation({
           </div>
         </div>
 
-        {/* Decorative Images */}
         <div className="hidden lg:block">
           <img
-            src="/public/images/Login/bg3.png"
+            src="/images/Login/bg3.png"
             className="absolute -top-24 -right-32 w-[25%]"
           />
         </div>
         <div className="hidden lg:block">
           <img
-            src="/public/images/Login/bg2.png"
+            src="/images/Login/bg2.png"
             className="absolute -bottom-20 -left-28 w-[20%]"
           />
         </div>

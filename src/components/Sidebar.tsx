@@ -7,7 +7,7 @@ const Sidebar = ({ displaySidebar, setDisplaySidebar }:LayoutStateProps) => {
   const menuItems = [
     {
       label: "Dashboard",
-      icon: <img src="/public/images/Sidebar/element-4.png" alt="dashboard" />,
+      icon: <img src="/images/Sidebar/element-4.png" alt="dashboard" />,
       path: "/",
     },
 

@@ -1,28 +1,24 @@
-import AnalyticChart from "../components/Dashboard/AnalyticChart"
-import Overview from "../components/Dashboard/Overview"
-import RecentTransactions from "../components/Dashboard/RecentTransactions"
-import Clients from "../components/Dashboard/Clients"
-
+import AnalyticChart from "../components/Dashboard/AnalyticChart";
+import Overview from "../components/Dashboard/Overview";
+import RecentTransactions from "../components/Dashboard/RecentTransactions";
+import Clients from "../components/Dashboard/Clients";
 
 const Dashboard = () => {
   return (
-    <>
-      <div className=' pb-8 w-full lg:px-10 px-4'>
-        <div className='lg:flex items-start  gap-5 w-full '>
-          <div className='lg:w-[70%]'>
-            <Overview />
-            <AnalyticChart />
+    <main className="pb-8 w-full lg:px-10 px-4">
+      <div className="lg:flex items-start gap-5 w-full">
+        <section className="lg:w-[70%] space-y-5" aria-label="Dashboard main content">
+          <Overview />
+          <AnalyticChart />
+        </section>
 
-          </div>
-          <div className='lg:w-[30%]  h-full'>
-            <Clients />
-            <RecentTransactions />
-          </div>
-
-        </div>
+        <aside className="lg:w-[30%] h-full space-y-5" aria-label="Dashboard sidebar">
+          <Clients />
+          <RecentTransactions />
+        </aside>
       </div>
-    </>
-  )
-}
+    </main>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

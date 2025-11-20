@@ -8,9 +8,7 @@ import TableSkeleton from "../components/ui/Skeleton/TableSkeleton";
 const ClientPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<
-    "All" | "Active" | "Inactive"
-  >("All");
+  const [statusFilter, setStatusFilter] = useState<"All" | "Active" | "Inactive">("All");
   const itemsPerPage = 10;
 
   const { data, isLoading, isError, error } = useQuery<Client[], Error>({
@@ -26,30 +24,31 @@ const ClientPage = () => {
     currentPage * itemsPerPage
   );
 
-  if (isLoading)
-    return (
-      <div className="bg-white w-full font-jakarta rounded-lg mt-4 lg:mt-0 p-4">
-        <TableSkeleton rows={10} columns={5} />
-      </div>
-    );
-  if (isError)
-    return <div className="text-red-500">Error: {error.message}</div>;
+  if (isLoading) return (
+    <div className="bg-white w-full font-jakarta rounded-lg mt-4 lg:mt-0 p-4">
+      <TableSkeleton rows={10} columns={5} />
+    </div>
+  );
+
+  if (isError) return <div className="text-red-500">Error: {error.message}</div>;
 
   const filteredClients = paginatedClients?.filter((c) => {
     const matchesSearch =
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.email.toLowerCase().includes(search.toLowerCase()) ||
       c.company.toLowerCase().includes(search.toLowerCase());
-    const matchesStatus =
-      statusFilter === "All" ? true : c.status === statusFilter;
+    const matchesStatus = statusFilter === "All" ? true : c.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
   return (
-    <div className="p-4 lg:p-6 bg-white font-jakarta rounded-md">
-      <h1 className="text-2xl font-jhaktra font-semibold mb-4">Clients</h1>
+    <main className="p-4 lg:p-6 bg-white font-jakarta rounded-md">
+      <header className="mb-4">
+        <h1 className="text-2xl font-semibold">Clients</h1>
+      </header>
 
-      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4">
+      {/* Filters */}
+      <section className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4" aria-label="Client filters">
         <input
           type="text"
           placeholder="Search clients..."
@@ -57,22 +56,19 @@ const ClientPage = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="px-4 py-2 border border-gray-300 bg-white rounded-lg w-full sm:max-w-sm"
         />
-
         <select
           value={statusFilter}
-          onChange={(e) =>
-            setStatusFilter(e.target.value as "All" | "Active" | "Inactive")
-          }
+          onChange={(e) => setStatusFilter(e.target.value as "All" | "Active" | "Inactive")}
           className="px-4 py-2 border border-gray-300 bg-white rounded-lg w-full sm:max-w-xs"
         >
           <option value="All">All</option>
           <option value="Active">Active</option>
           <option value="Inactive">Inactive</option>
         </select>
-      </div>
+      </section>
 
       {/* Table */}
-      <div className="overflow-x-auto">
+      <section className="overflow-x-auto" aria-label="Client list">
         <table className="w-full border border-gray-300 min-w-[600px] sm:min-w-full">
           <thead>
             <tr className="bg-gray-100">
@@ -93,18 +89,12 @@ const ClientPage = () => {
                     alt={client.name}
                   />
                   <div>
-                    <h1 className="font-medium">{client.name}</h1>
-                    <p className="text-gray-500 text-[10px] sm:text-xs">
-                      @{client.username}
-                    </p>
+                    <h2 className="font-medium">{client.name}</h2>
+                    <p className="text-gray-500 text-[10px] sm:text-xs">@{client.username}</p>
                   </div>
                 </td>
-                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
-                  {client.email}
-                </td>
-                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">
-                  {client.company}
-                </td>
+                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">{client.email}</td>
+                <td className="border border-gray-300 p-2 sm:p-4 text-xs sm:text-sm">{client.company}</td>
                 <td className="border border-gray-300 p-2 sm:p-4 text-center text-xs sm:text-sm">
                   <div
                     className={`font-medium rounded-md px-2 py-1 ${
@@ -117,10 +107,7 @@ const ClientPage = () => {
                   </div>
                 </td>
                 <td className="border border-gray-300 p-2 sm:p-4 text-center text-xs sm:text-sm">
-                  <Link
-                    to={`/clients/${client.id}`}
-                    className="text-blue-500 hover:underline"
-                  >
+                  <Link to={`/clients/${client.id}`} className="text-blue-500 hover:underline">
                     View
                   </Link>
                 </td>
@@ -128,10 +115,10 @@ const ClientPage = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </section>
 
       {/* Pagination */}
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mt-4">
+      <nav className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mt-4" aria-label="Pagination">
         <button
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}
@@ -149,8 +136,8 @@ const ClientPage = () => {
         >
           Next
         </button>
-      </div>
-    </div>
+      </nav>
+    </main>
   );
 };
 
