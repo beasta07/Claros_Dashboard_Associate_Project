@@ -1,19 +1,21 @@
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
+import { useState } from "react";
 
 const Layout = () => {
+  const [displaySidebar, setDisplaySidebar] = useState(false);
   return (
     <section className="flex w-full">
       {/* Sticky sidebar */}
-      <aside className="w-[20%] h-screen sticky top-0">
-        <Sidebar />
+      <aside className="md:w-[20%] h-screen md:sticky md:top-0">
+        <Sidebar displaySidebar={displaySidebar} setDisplaySidebar={setDisplaySidebar}  />
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 bg-gray-100 min-h-screen overflow-auto">
-        <Navbar />
-        <div className="p-6">
+      <main className="flex-1 bg-[#F7F7FB]  overflow-auto">
+        <Navbar displaySidebar={displaySidebar} setDisplaySidebar={setDisplaySidebar} />
+        <div className="md:p-6">
           <Outlet />
         </div>
       </main>

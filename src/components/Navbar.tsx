@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { BsChatLeftDots } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { GoBell } from "react-icons/go";
 import { IoIosArrowDown } from "react-icons/io";
-import { useNavigate, useParams } from "react-router-dom";
+import {  NavLink, useNavigate, useParams } from "react-router-dom";
 
-const Navbar = ({ displaySidebar, setDisplaySidebar }) => {
-  const [showDropdown, setShowDropdown] = useState(false);
+type NavbarProps = {
+  displaySidebar: boolean;
+  setDisplaySidebar: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+
+const Navbar = ({ displaySidebar, setDisplaySidebar }:NavbarProps) => {
+  const [displayDropdown,setDisplayDropDown]=useState(false)
   const navigate = useNavigate();
   const params = useParams();
   const pageTitle = params.title || "Dashboard";
@@ -16,7 +20,7 @@ const Navbar = ({ displaySidebar, setDisplaySidebar }) => {
   return (
     <div className="bg-[#F7F7FB] w-full lg:px-10 lg:py-8 p-4 font-jakarta">
       <div className="lg:flex gap-4 w-full ">
-        <div className="flex gap-4 lg:w-[70%]">
+        <div className="flex justify-between  gap-4 w-full">
           <div
             onClick={() => {
               setDisplaySidebar(!displaySidebar);
@@ -25,15 +29,15 @@ const Navbar = ({ displaySidebar, setDisplaySidebar }) => {
           >
             <GiHamburgerMenu />
           </div>
-          <div className="w-full p-4 bg-white rounded-full">{pageTitle}</div>
+          <div className="w-full">
+
+          <NavLink to='/'>
+          <h1 className="w-full p-4 font-semibold block bg-white  rounded-full">{pageTitle}</h1>
+          </NavLink>
+          </div>
         </div>
-        <div className="bg-white rounded-full p-2 lg:w-[30%]  shadow-xs  mt-4 lg:mt-0  flex  gap-3 items-center">
-          <div className="border border-gray-300 rounded-full py-2 px-3">
-            <GoBell />
-          </div>
-          <div className="border border-gray-300 rounded-full py-2 px-3">
-            <BsChatLeftDots />
-          </div>
+        <div className="bg-white rounded-full p-2  shadow-xs  mt-4 lg:mt-0  flex  gap-3 items-center">
+       
           <div className=" bg-[#D9D9D9] rounded-full   px-2 py-2">
             <svg
               width="20"
@@ -58,14 +62,14 @@ const Navbar = ({ displaySidebar, setDisplaySidebar }) => {
           </div>
           <div className="relative">
             <div
-              onClick={() => setShowDropdown(!showDropdown)}
+              onClick={() => setDisplayDropDown(!displayDropdown)}
               className="flex items-center w-full gap-2 cursor-pointer"
             >
               <h2 className="text-nowrap text-sm">Pranish bista</h2>
               <IoIosArrowDown className="text-xl" />
             </div>
 
-            {showDropdown && (
+            {displayDropdown && (
               <div className="absolute right-0 mt-2 bg-white border border-gray-300 shadow-md rounded-md p-2 w-32 z-50">
                 <button
                   onClick={handleLogout}

@@ -3,6 +3,7 @@ import { fetchClients } from "../api/clients";
 import type { Client } from "../types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import TableSkeleton from "../components/ui/Skeleton/TableSkeleton";
 
 const ClientPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,8 +24,12 @@ const ClientPage = () => {
     currentPage * itemsPerPage
   );
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div className="text-red-500">Error: {error.message}</div>;
+if (isLoading)
+  return (
+    <div className="bg-white w-full font-jakarta rounded-lg mt-4 lg:mt-0 p-4">
+      <TableSkeleton rows={10} columns={5} />
+    </div>
+  );  if (isError) return <div className="text-red-500">Error: {error.message}</div>;
 
   const filteredClients = paginatedClients?.filter((c) => {
     const matchesSearch =

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchTransactions, type Transaction } from "../../api/transactions";
 import { NavLink } from "react-router-dom";
+import ListSkeleton from "../ui/Skeleton/ListSkeleton";
 
 const RecentTransactions = () => {
   const {
@@ -12,8 +13,7 @@ const RecentTransactions = () => {
     queryFn: fetchTransactions,
   });
 
-  if (isLoading) return <p>Loading transactions...</p>;
-  if (isError)
+if (isLoading) return <ListSkeleton count={4} />;  if (isError)
     return <p className="text-red-500">Failed to load transactions.</p>;
 
   return (

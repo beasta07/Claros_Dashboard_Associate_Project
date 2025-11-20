@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { InfoCircle, Login, Setting, User } from "react-iconly";
+import React from "react";
+import {  Login, Setting, User } from "react-iconly";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
-  const [displaySidebar, setDisplaySidebar] = useState(true); // mobile toggle
+const Sidebar: React.FC = ({displaySidebar,setDisplaySidebar}) => {
 
   const menuItems = [
     {
@@ -71,10 +70,7 @@ const Sidebar: React.FC = () => {
       </ul>
 
       <ul className="absolute bottom-7 flex flex-col gap-6 text-sm px-4">
-        <li className="flex gap-3 cursor-pointer">
-          <InfoCircle primaryColor="gray" secondaryColor="gray" size="medium" />
-          <span className="text-gray-700">Help</span>
-        </li>
+ 
         <NavLink to="/login" className="flex gap-3">
           <Login primaryColor="gray" secondaryColor="gray" size="medium" />
           <span className="text-gray-700">Logout</span>

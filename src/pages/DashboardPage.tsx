@@ -1,7 +1,6 @@
 import AnalyticChart from "../components/Dashboard/AnalyticChart"
 import Overview from "../components/Dashboard/Overview"
 import RecentTransactions from "../components/Dashboard/RecentTransactions"
-import SavingPlan from "../components/Dashboard/Clients"
 import Clients from "../components/Dashboard/Clients"
 
 

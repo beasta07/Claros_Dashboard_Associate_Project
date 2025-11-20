@@ -5,6 +5,7 @@ import { SiMoneygram } from "react-icons/si";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoins } from "../../api/overview";
 import type { Coin } from "../../api/overview";
+import CardSkeleton from "../ui/Skeleton/CardSkeleton";
 
 const Overview = () => {
 
@@ -18,7 +19,6 @@ const Overview = () => {
     queryFn: fetchCoins,
   });
 
-  if (isLoading) return <div>Loading...</div>;
   if (isError) return <div className="text-red-500">{error.message}</div>;
 
   // --- Transform crypto values into analytics KPIs ---
@@ -83,12 +83,14 @@ const Overview = () => {
   return (
     <div className="bg-white font-jakarta rounded-lg p-3">
       <h1 className="font-bold">Overview</h1>
-      <div className="grid lg:grid-cols-2 gap-5 my-4">
-        {cards.map((card) => (
-          <div
-            key={card.title}
-            className="border border-gray-300 p-3 hover:bg-[#4644A4] hover:text-white duration-1000 rounded-xl cursor-pointer hover:shadow-md transition"
-          >
+ <div className="grid lg:grid-cols-2 gap-5 my-4">
+        {isLoading
+          ? Array.from({ length: 4 }).map((_, i) => <CardSkeleton key={i} />)
+          : cards.map((card) => (
+              <div
+                key={card.title}
+                className="border border-gray-300 p-3 hover:bg-[#4644A4] hover:text-white duration-1000 rounded-xl cursor-pointer hover:shadow-md transition"
+              >
             <div className="flex items-center gap-2">
               <div className="rounded-full border p-2 border-gray-300">
                 {card.icon}

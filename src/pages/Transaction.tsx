@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchTransactions, type Transaction } from "../api/transactions";
 import { useState } from "react";
+import TableSkeleton from "../components/ui/Skeleton/TableSkeleton";
 
 const TransactionPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,8 +12,12 @@ const TransactionPage = () => {
     queryFn: fetchTransactions,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p className="text-red-500">Error: {error.message}</p>;
+if (isLoading)
+  return (
+    <div className="bg-white w-full font-jakarta rounded-lg mt-4 lg:mt-0 p-4">
+      <TableSkeleton rows={10} columns={5} />
+    </div>
+  );  if (isError) return <p className="text-red-500">Error: {error.message}</p>;
 
   const totalItems = data?.length ?? 0;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
